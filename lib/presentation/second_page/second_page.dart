@@ -1,4 +1,5 @@
 import 'package:energise_tet_ex/presentation/second_page/controller/controller.dart';
+import 'package:energise_tet_ex/presentation/third_page/third_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -80,9 +81,12 @@ class SecondPage extends StatelessWidget {
                         SizedBox(
                           width: double.infinity,
                           child: ElevatedButton(
-                            onPressed: secondController.getGeolocationData,
+                            onPressed: () {
+                              Get.to(() => const ThirdPage());
+                            },
+                            // secondController.getGeolocationData,
                             style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.green),
+                                backgroundColor: Colors.green,),
                             child: const Text('Reload'),
                           ),
                         ),
