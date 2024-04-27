@@ -8,8 +8,9 @@ class Tabs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final rootController = Get.put(RootController());
+    final tabNames = ['main_page'.tr, 'second_page'.tr, 'third_page'.tr];
     return Padding(
-      padding: const EdgeInsets.only(top: 40),
+      padding: const EdgeInsets.only(top: 20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: List.generate(
@@ -28,9 +29,7 @@ class Tabs extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
                 child: Text(
-                  index == 0
-                      ? 'main_page'.tr
-                      : (index == 1 ? 'second_page'.tr : 'third_page'.tr),
+                  tabNames[index],
                   textAlign: TextAlign.center,
                 ),
               ),

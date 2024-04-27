@@ -11,6 +11,11 @@ class SecondController extends GetxController with GetTickerProviderStateMixin {
   late final Animation<Offset> offsetAnimation;
   late final AnimationController _controller;
 
+  GeolocationModel? geolocationModel;
+  LatLng? latLng;
+
+  bool isLoading = true;
+
   @override
   void onInit() {
     super.onInit();
@@ -32,11 +37,6 @@ class SecondController extends GetxController with GetTickerProviderStateMixin {
     _controller.reset();
     _controller.forward();
   }
-
-  GeolocationModel? geolocationModel;
-  LatLng? latLng;
-
-  bool isLoading = true;
 
   Future<void> getGeolocationData() async {
     isLoading = true;

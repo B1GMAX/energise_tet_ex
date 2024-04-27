@@ -12,7 +12,7 @@ class ApiService {
       try {
         return GeolocationModel.fromJson(response.data);
       } catch (e) {
-        Get.snackbar('Something went wrong!', 'Something went wrong!');
+        Get.snackbar('Error', 'Something went wrong!');
       }
     }
     return null;

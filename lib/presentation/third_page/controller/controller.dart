@@ -8,7 +8,7 @@ class ThirdController extends GetxController {
 
   Future<void> openUri() async {
     if (!await launchUrl(_url)) {
-      Get.snackbar('Could not launch $_url', 'Could not launch url');
+      Get.snackbar('Error', 'Could not launch $_url');
     }
   }
 

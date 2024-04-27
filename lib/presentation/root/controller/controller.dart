@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 class RootController extends GetxController {
   final pageController = PageController().obs;
 
-  RxInt currentIndex = 0.obs;
+  final RxInt currentIndex = 0.obs;
 
   @override
   void onInit() {

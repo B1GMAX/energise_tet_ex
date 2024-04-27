@@ -11,35 +11,30 @@ class ThirdPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final thirdController = Get.put(ThirdController());
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: List.generate(
-          3,
-          (index) => SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () {
-                if (index == 0) {
-                  showCupertinoDialog(
-                    context: context,
-                    builder: (context) => const RateDialog(),
-                  );
-                } else if (index == 1) {
-                  Share.share('check_out_this_app'.tr);
-                } else {
-                  thirdController.openUri();
-                }
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.green,
-              ),
-              child: Text(
-                index == 0
-                    ? 'rate_app'.tr
-                    : (index == 1 ? 'share_app'.tr : 'contact_us'.tr),
-              ),
-            ),
+    final buttonsNames = ['rate_app'.tr, 'share_app'.tr, 'contact_us'.tr];
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: List.generate(
+        3,
+        (index) => ElevatedButton(
+          onPressed: () {
+            if (index == 0) {
+              showCupertinoDialog(
+                context: context,
+                builder: (context) => const RateDialog(),
+              );
+            } else if (index == 1) {
+              Share.share('check_out_this_app'.tr);
+            } else {
+              thirdController.openUri();
+            }
+          },
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.green,
+          ),
+          child: Text(
+            buttonsNames[index],
           ),
         ),
       ),

@@ -4,8 +4,14 @@ import 'package:flutter/animation.dart';
 import 'package:get/get.dart';
 
 class MainController extends GetxController with GetTickerProviderStateMixin {
-  late AnimationController buttonAnimationController;
-  late AnimationController timerAnimationController;
+  late final AnimationController buttonAnimationController;
+  late final AnimationController timerAnimationController;
+
+  Timer? _timer;
+  int _secondsElapsed = 0;
+
+  final RxString timerData = '00.00.00'.obs;
+  final RxBool isTimerStarted = false.obs;
 
   @override
   void onInit() {
@@ -19,12 +25,6 @@ class MainController extends GetxController with GetTickerProviderStateMixin {
       duration: const Duration(seconds: 1),
     );
   }
-
-  Timer? _timer;
-  int _secondsElapsed = 0;
-
-  RxString timerData = '00.00.00'.obs;
-  RxBool isTimerStarted = false.obs;
 
   void startTimer() {
     isTimerStarted.value = !isTimerStarted.value;

@@ -34,10 +34,7 @@ class MainPage extends StatelessWidget {
               child: SizedBox(
                 height: 100,
                 child: ElevatedButton(
-                  onPressed: () {
-                    mainController.startTimer();
-                    Get.updateLocale(Get.deviceLocale!);
-                  },
+                  onPressed: mainController.startTimer,
                   style: ElevatedButton.styleFrom(
                     shape: const CircleBorder(),
                     backgroundColor: Colors.green,

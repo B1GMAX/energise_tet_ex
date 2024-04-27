@@ -14,22 +14,24 @@ class RootPage extends StatelessWidget {
     final rootController = Get.put(RootController());
     return Scaffold(
       body: Obx(
-        () => Padding(
-          padding:const EdgeInsets.symmetric(horizontal: 15),
-          child: Column(
-            children: [
-              const Tabs(),
-              Expanded(
-                child: PageView(
-                  controller: rootController.pageController.value,
-                  children: const [
-                    MainPage(),
-                    SecondPage(),
-                    ThirdPage(),
-                  ],
+        () => SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Column(
+              children: [
+                const Tabs(),
+                Expanded(
+                  child: PageView(
+                    controller: rootController.pageController.value,
+                    children: const [
+                      MainPage(),
+                      SecondPage(),
+                      ThirdPage(),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

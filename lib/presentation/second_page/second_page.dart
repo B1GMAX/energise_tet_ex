@@ -1,4 +1,6 @@
+import 'package:energise_tet_ex/core/consts.dart';
 import 'package:energise_tet_ex/presentation/second_page/controller/controller.dart';
+import 'package:energise_tet_ex/presentation/second_page/widgets/geolocation_info_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -18,90 +20,134 @@ class SecondPage extends StatelessWidget {
             ? const Center(
                 child: CircularProgressIndicator(),
               )
-            : RefreshIndicator(
-                onRefresh: secondController.getGeolocationData,
-                child: SingleChildScrollView(
-                  physics: const AlwaysScrollableScrollPhysics(),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.only(top: 55),
-                        height: 200,
-                        width: double.infinity,
-                        child: GoogleMap(
-                          markers: {
-                            Marker(
-                              markerId: const MarkerId('Coordinate Place'),
-                              position: secondController.latLng != null
-                                  ? secondController.latLng!
-                                  : const LatLng(
-                                      37.43296265331129,
-                                      -122.08832357078792,
-                                    ),
-                            )
-                          },
-                          initialCameraPosition: CameraPosition(
-                            target: secondController.latLng != null
-                                ? secondController.latLng!
-                                : const LatLng(
-                                    37.43296265331129,
-                                    -122.08832357078792,
+            : LayoutBuilder(
+                builder: (_, constraints) {
+                  final latLng = secondController.latLng ??
+                      const LatLng(
+                        defaultLat,
+                        defaultLng,
+                      );
+                  return RefreshIndicator(
+                    onRefresh: secondController.getGeolocationData,
+                    child: SizedBox(
+                      height: constraints.maxHeight,
+                      child: SingleChildScrollView(
+                        physics: const AlwaysScrollableScrollPhysics(),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.only(top: 50),
+                              height: 200,
+                              width: double.infinity,
+                              child: GoogleMap(
+                                markers: {
+                                  Marker(
+                                    markerId:
+                                        const MarkerId('Coordinate Place'),
+                                    position: latLng,
+                                  )
+                                },
+                                initialCameraPosition: CameraPosition(
+                                  target: latLng,
+                                  zoom: 10,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 15),
+                            if (secondController.geolocationModel != null)
+                              SlideTransition(
+                                position: secondController.offsetAnimation,
+                                child: SingleChildScrollView(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      GeolocationInfoWidget(
+                                        label: 'status'.tr,
+                                        value: secondController
+                                            .geolocationModel!.status,
+                                      ),
+                                      GeolocationInfoWidget(
+                                        label: 'longitude'.tr,
+                                        value: secondController
+                                            .geolocationModel!.lon
+                                            .toString(),
+                                      ),
+                                      GeolocationInfoWidget(
+                                        label: 'latitude'.tr,
+                                        value: secondController
+                                            .geolocationModel!.lat
+                                            .toString(),
+                                      ),
+                                      GeolocationInfoWidget(
+                                        label: 'city'.tr,
+                                        value: secondController
+                                            .geolocationModel!.city,
+                                      ),
+                                      GeolocationInfoWidget(
+                                        label: 'country_code'.tr,
+                                        value: secondController
+                                            .geolocationModel!.countryCode,
+                                      ),
+                                      GeolocationInfoWidget(
+                                        label: 'country'.tr,
+                                        value: secondController
+                                            .geolocationModel!.country,
+                                      ),
+                                      GeolocationInfoWidget(
+                                        label: 'query'.tr,
+                                        value: secondController
+                                            .geolocationModel!.query,
+                                      ),
+                                      GeolocationInfoWidget(
+                                        label: 'as'.tr,
+                                        value: secondController
+                                            .geolocationModel!.as,
+                                      ),
+                                      GeolocationInfoWidget(
+                                        label: 'isp'.tr,
+                                        value: secondController
+                                            .geolocationModel!.isp,
+                                      ),
+                                      GeolocationInfoWidget(
+                                        label: 'region'.tr,
+                                        value: secondController
+                                            .geolocationModel!.region,
+                                      ),
+                                      GeolocationInfoWidget(
+                                        label: 'region_name'.tr,
+                                        value: secondController
+                                            .geolocationModel!.regionName,
+                                      ),
+                                      GeolocationInfoWidget(
+                                        label: 'time_zone'.tr,
+                                        value: secondController
+                                            .geolocationModel!.timezone,
+                                      ),
+                                      GeolocationInfoWidget(
+                                        label: 'zip'.tr,
+                                        value: secondController
+                                            .geolocationModel!.zip,
+                                      ),
+                                    ],
                                   ),
-                            zoom: 10,
-                          ),
+                                ),
+                              ),
+                            const SizedBox(height: 15),
+                            ElevatedButton(
+                              onPressed: secondController.getGeolocationData,
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.green,
+                              ),
+                              child: Text('reload'.tr),
+                            ),
+                          ],
                         ),
                       ),
-                      const SizedBox(height: 15),
-                      if (secondController.geolocationModel != null)
-                        SlideTransition(
-                          position: secondController.offsetAnimation,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                  '${'status'.tr} - ${secondController.geolocationModel!.status ?? ''}'),
-                              Text(
-                                  '${'longitude'.tr} - ${secondController.geolocationModel!.lon ?? ''}'),
-                              Text(
-                                  '${'latitude'.tr} - ${secondController.geolocationModel!.lat ?? ''}'),
-                              Text(
-                                  '${'city'.tr} - ${secondController.geolocationModel!.city ?? ''}'),
-                              Text(
-                                  '${'country_code'.tr} - ${secondController.geolocationModel!.countryCode ?? ''}'),
-                              Text(
-                                  '${'country'.tr} - ${secondController.geolocationModel!.country ?? ''}'),
-                              Text(
-                                  '${'query'.tr} - ${secondController.geolocationModel!.query ?? ''}'),
-                              Text(
-                                  '${'as'.tr} - ${secondController.geolocationModel!.as ?? ''}'),
-                              Text(
-                                  '${'isp'.tr} - ${secondController.geolocationModel!.isp ?? ''}'),
-                              Text(
-                                  '${'region'.tr} - ${secondController.geolocationModel!.region ?? ''}'),
-                              Text(
-                                  '${'region_name'.tr} - ${secondController.geolocationModel!.regionName ?? ''}'),
-                              Text(
-                                  '${'time_zone'.tr} - ${secondController.geolocationModel!.timezone ?? ''}'),
-                              Text(
-                                  '${'zip'.tr} - ${secondController.geolocationModel!.zip ?? ''}'),
-                            ],
-                          ),
-                        ),
-                      const SizedBox(height: 15),
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: secondController.getGeolocationData,
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.green,
-                          ),
-                          child: Text('reload'.tr),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                    ),
+                  );
+                },
               );
       },
     );

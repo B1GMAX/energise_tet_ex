@@ -12,12 +12,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return GetMaterialApp(
       theme: ThemeData(scaffoldBackgroundColor: Colors.white),
       translationsKeys: AppLocalizations().keys,
       locale: Get.deviceLocale,
-      fallbackLocale: const Locale('en','US'),
+      fallbackLocale: const Locale('en', 'US'),
       home: const RootPage(),
     );
   }
