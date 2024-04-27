@@ -7,13 +7,11 @@ class ApiService {
 
   Future<GeolocationModel?> getGeolocationData() async {
     final response =
-        await _dio.get('http://ip-api.com/json/');
+        await _dio.get('http://ip-api.com/json/?lang=${Get.deviceLocale}');
     if (response.statusCode == 200) {
       try {
-        print('response.data - ${response.data}');
         return GeolocationModel.fromJson(response.data);
-      } catch (e, s) {
-        print('error - $e; stack - $s');
+      } catch (e) {
         Get.snackbar('Something went wrong!', 'Something went wrong!');
       }
     }

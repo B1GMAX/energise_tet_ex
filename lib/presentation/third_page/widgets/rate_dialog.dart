@@ -14,15 +14,19 @@ class RateDialog extends StatelessWidget {
       builder: (context) => CupertinoAlertDialog(
         title: const Text('Rate us'),
         content: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: List.generate(
             5,
             (index) => GestureDetector(
               onTap: () => thirdController.selectStar(index),
-              child: Icon(
-                Icons.star,
-                color: thirdController.selectedStarIndex >= index
-                    ? Colors.yellow
-                    : Colors.grey,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 3),
+                child: Icon(
+                  Icons.star,
+                  color: thirdController.selectedStarIndex >= index
+                      ? Colors.yellow
+                      : Colors.grey,
+                ),
               ),
             ),
           ),

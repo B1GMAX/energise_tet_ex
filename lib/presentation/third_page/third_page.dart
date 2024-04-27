@@ -11,38 +11,33 @@ class ThirdPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final thirdController = Get.put(ThirdController());
-    return Scaffold(
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: List.generate(
-              3,
-              (index) => SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    if (index == 0) {
-                      showCupertinoDialog(
-                        context: context,
-                        builder: (context) => const RateDialog(),
-                      );
-                    } else if (index == 1) {
-                      Share.share('check out this app');
-                    } else {
-                      thirdController.openUri();
-                    }
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.green,
-                  ),
-                  child: Text(
-                    index == 0
-                        ? 'Rate App'
-                        : (index == 1 ? 'Share App ' : 'Contact us'),
-                  ),
-                ),
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: List.generate(
+          3,
+          (index) => SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: () {
+                if (index == 0) {
+                  showCupertinoDialog(
+                    context: context,
+                    builder: (context) => const RateDialog(),
+                  );
+                } else if (index == 1) {
+                  Share.share('check_out_this_app'.tr);
+                } else {
+                  thirdController.openUri();
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.green,
+              ),
+              child: Text(
+                index == 0
+                    ? 'rate_app'.tr
+                    : (index == 1 ? 'share_app'.tr : 'contact_us'.tr),
               ),
             ),
           ),

@@ -55,6 +55,7 @@ class MainController extends GetxController with GetTickerProviderStateMixin {
   void dispose() {
     super.dispose();
     buttonAnimationController.dispose();
+    timerAnimationController.dispose();
     _timer?.cancel();
   }
 }
